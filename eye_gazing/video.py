@@ -9,6 +9,9 @@ import pandas as pd
 # cap = cv.VideoCapture('assets/iris.mp4')
 # カメラの起動
 cap = cv.VideoCapture(0)
+
+
+
 # FPSを取得
 fps = int(cap.get(cv.CAP_PROP_FPS))
 # 矢印の描画パラメータ
@@ -29,8 +32,8 @@ with open(csv_filename, mode="w", newline="") as file:
     header = ["time","left","right","center"]
     writer.writerow(header)
 # 動画保存のための設定
-fourcc = cv.VideoWriter_fourcc(*'mp4v')  # 動画形式（mp4）
-output_video = cv.VideoWriter('output_video.mp4', fourcc,fps, (640, 480))  # フレームレート30、解像度640x480
+# fourcc = cv.VideoWriter_fourcc(*'mp4v')  # 動画形式（mp4）
+# output_video = cv.VideoWriter('output_video.mp4', fourcc,fps, (640, 480))  # フレームレート30、解像度640x480
 # CSVを開いたままループ
 with open(csv_filename, mode="a", newline="") as file:
     writer = csv.writer(file)
