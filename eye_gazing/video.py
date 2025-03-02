@@ -10,8 +10,6 @@ import pandas as pd
 # カメラの起動
 cap = cv.VideoCapture(0)
 
-
-
 # FPSを取得
 fps = int(cap.get(cv.CAP_PROP_FPS))
 # 矢印の描画パラメータ
@@ -184,6 +182,7 @@ if __name__ == '__main__':
             ret, image = cap.read()
             if not ret:
                 break
+            # image = cv.flip(image, 1) 
             debug_image = copy.deepcopy(image)
             image_width, image_height = image.shape[1], image.shape[0]
             # 検出実施
@@ -230,12 +229,15 @@ if __name__ == '__main__':
             row = [timestamp] + eye_dir
             writer.writerow(row)
             cv.imshow('MediaPipe Face Mesh Demo', debug_image)
+            # output_video.write(debug_image)  # 動画に保存
+
             # キー処理(ESC：終了)
             wait_time = int(1000 / fps)
             key = cv.waitKey(wait_time)
             if key == 27:  # ESC
                 break
         cap.release()
+        # output_video.release()
         cv.destroyAllWindows()
     eye_dir_df = pd.read_csv('eye_dir.csv', index_col=0)
     eye_dir_df.index -= eye_dir_df.index[0]
